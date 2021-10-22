@@ -8,7 +8,7 @@
         "*.spec.js"
     ],
     "scripts": {
-        "start": "nodemon",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "npx nodemon ./server.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
       }
 }
