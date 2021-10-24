@@ -2,17 +2,28 @@ const CarModel = require('../models/CarModel')
 var uuid = require('uuid');
 
 
-const carsList = (req, res) => {
-    res.send({
-        success: true,
-        message: 'Success!'
-    })
+const carsList = async (req, res, next) => {
+
+    const cars = await CarModel.find({})
+    
+    try {
+        res.send({
+            success: true,
+            message: 'Success!',
+            data:{
+                cars
+            }
+        })
+
+    } catch (error) {
+        next(error);
+    }
 }
 
 const insertCar = async (req, res, next) => {
 
     try {
-        
+
         const newCar = new CarModel({
             id: uuid.v4(),
             vehicle: req.body.vehicle,
@@ -25,7 +36,7 @@ const insertCar = async (req, res, next) => {
             price: req.body.price,
         })
         await newCar.save()
-        
+
         res.send({
             status: true,
             message: 'the new car successfully created!',
@@ -35,7 +46,7 @@ const insertCar = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-    
+
 }
 
 
